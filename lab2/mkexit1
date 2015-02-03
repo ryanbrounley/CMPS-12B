@@ -1,0 +1,9 @@
+#!/bin/sh
+# $Id$
+# Ryan Brounley -- rbrounle
+
+javac exit1.java
+echo Main-class: exit1 >Manifest
+jar cvfm exit1 Manifest exit1.class
+yes | rm -i Manifest exit1.class
+chmod +x exit1

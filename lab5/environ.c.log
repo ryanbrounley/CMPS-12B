@@ -1,0 +1,7 @@
+environ.c:9:6: warning: return type of ‘main’ is not ‘int’ [-Wmain]
+ void main(){
+      ^
+/tmp/cc9WDDKm.o: In function `main':
+/afs/cats.ucsc.edu/users/s/rbrounle/private/cmps012m/lab5/environ.c:11: undefined reference to `enviorn'
+/afs/cats.ucsc.edu/users/s/rbrounle/private/cmps012m/lab5/environ.c:10: undefined reference to `enviorn'
+collect2: error: ld returned 1 exit status

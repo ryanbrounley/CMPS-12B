@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 1
+	at options.<init>(options.java:24)
+	at jgrep.main(jgrep.java:65)

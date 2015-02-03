@@ -1,0 +1,31 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@# @;
+
+
+1.1
+date	2014.04.09.01.33.31;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@<A HREF=http://www2.ucsc.edu/courses/cmps012b-wm/:/etc/evil-empire/>
+evil-empire/</A>
+<BR>
+<IMG SRC=
+http://www2.ucsc.edu/courses/cmps012b-wm/:/etc/evil-empire/OS-Wars.gif
+ALT=OS-Wars.gif>
+<BR>
+<TT>$Id: README.html,v 1.3 2012-09-20 17:28:04-07 - - $</TT>
+@

@@ -1,0 +1,11 @@
+#Ryan Brounley
+#rbrounle
+
+lrwxr-xr-x. 1 rbrounle 39504 72 Apr 15 14:48 lab2 -> /afs/cats.ucsc.edu/users/s/rbrounle/12b/Labs-cmps012m/lab2u-unix-shells/
+  File: `lab2' -> `/afs/cats.ucsc.edu/users/s/rbrounle/12b/Labs-cmps012m/lab2u-unix-shells/'
+  Size: 72        	Blocks: 2          IO Block: 4096   symbolic link
+Device: 15h/21d	Inode: 567280198   Links: 1
+Access: (0755/lrwxr-xr-x)  Uid: (50279/rbrounle)   Gid: (39504/ UNKNOWN)
+Access: 2014-04-15 14:48:02.000000000 -0700
+Modify: 2014-04-15 14:48:02.000000001 -0700
+Change: 2014-04-15 14:48:02.000000000 -0700

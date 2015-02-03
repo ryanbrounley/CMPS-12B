@@ -1,0 +1,40 @@
+head	1.1;
+access;
+symbols;
+locks;
+comment	@ * @;
+
+
+1.1
+date	2014.06.07.05.10.43;	author -;	state -;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@-
+@
+text
+@// $Id: strhash.c,v 1.6 2014-03-05 19:24:07-08 - - $
+
+#include <assert.h>
+#include <stdio.h>
+#include <sys/types.h>
+
+#include "strhash.h"
+
+size_t strhash (const char *string) {
+   assert (string != NULL);
+   size_t hash = 0;
+   for (; *string != '\0'; ++string) {
+      hash = *string + (hash << 6) + (hash << 16) - hash;
+   }
+   return hash;
+}
+
+@

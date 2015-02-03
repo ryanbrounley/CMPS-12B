@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int ERROR_STATUS = 0;
+
+void getinformation(char* filename){
+  struct stat fileinfo;
+  
+  mode_t mode = fileinfo->st_mode;
+  off_t  size = fileinfo->st_size;
+  time_t time = fileinfo->st_mtime;
+
+
+  //printf("%6o      %9d  %d  %s", mode, size, time, );
+}
+
+
+int main(int argc, char** argv){
+  
+  for (int i = 0; i < argc; ++i){
+     if(argc < 1){  getinformation(i);}
+     else{  getinformation('.');}
+  }    
+  return ERROR_STATUS;
+}
