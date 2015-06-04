@@ -1,0 +1,4 @@
+//Ryan Brounley
+//rbrounle
+
+//I was unsuccessful in loading the dictionary in, which makes the spellcheck report every word as incorrect. I believe all my code is functional, yet the debug statement with only nothing in the hashset makes it untestable. 

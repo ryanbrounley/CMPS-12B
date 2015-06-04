@@ -1,0 +1,11 @@
+$Id: README,v 1.1 2014-04-10 17:01:54-07 - - $
+#Ryan Brounley -- rbrounle
+#I completed all of the base code implementing all of the code,
+#linking between all the classes with functions for each case
+# of the main switch statement.
+#
+# To the Grader- I understand that none of my tests will work, I am
+# confident however that it is because of the bug making me declare
+# dllist.position throughout the code rather than lines.position
+# (the one created in the edfile class). I see no flaw in any of
+# the logic of my functions. It refused to compile without declaring dllist :(.

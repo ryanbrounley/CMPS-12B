@@ -1,0 +1,63 @@
+// $Id: jgrep.java,v 1.2 2014-04-02 21:30:12-07 - - $
+// Ryan Brounley - rbrounle@ucsc.edu
+
+//
+// This program is a stub showing how to create a pattern from a
+// regular expression.  It does not handle options or files, and
+// has some other bugs which you must discover and fix.
+//
+
+import java.io.*;
+import java.util.Scanner;
+import java.util.regex.*;
+import static java.lang.System.*;
+
+class jgrep {
+
+   static void scanfile (Scanner input, String filename, Pattern pattern, options opts) {
+      int linenum = 0;
+      while (input.hasNextLine()) {
+         linenum++;
+         String line = input.nextLine();
+         boolean matches = pattern.matcher (line).find();
+         if (options.reverse_match)
+            matches = !matches;
+         if (matches) {
+            if (opts.filename_only){
+               System.out.format("%s \n", opts.filenames);
+               opts.filename_only = false;}
+            if (opts.number_lines){
+               System.out.format("%s \n", linenum);
+               opts.number_lines = false;}
+         }
+      }
+   }
+
+   public static void main (String[] args) {
+      options opts = new options (args);
+      try {
+          if(opts.insensitive){
+            Pattern pattern = Pattern.compile (opts.regex, Pattern.CASE_INSENSITIVE);}
+          else if (opts.insensitive =false){
+            Pattern pattern = Pattern.compile (opts.regex);}
+          if (opts.filenames.length == 0) {
+            scanfile (new Scanner (in), "<stdin>", pattern, opts);
+         }else {
+            for (int argi = 1; argi < opts.filenames.length; ++argi) {
+               try {
+                  String filename = opts.filenames[argi];
+                  Scanner input = new Scanner (new File (filename));
+                  scanfile (input, filename, pattern, opts);
+                  input.close();
+               }catch (IOException error) {
+                  messages.warnsyntax(error.getMessage());
+               }
+            }
+         }
+      }catch (PatternSyntaxException error) {
+         messages.die(error.getMessage());
+      }
+      exit (messages.exit_status);
+   }
+}
+

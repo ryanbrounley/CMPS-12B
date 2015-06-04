@@ -1,0 +1,158 @@
+Script started on Wed 07 May 2014 02:37:19 PM PDT
+You are currently using 5% (22.5 MiB) of your 488.3 MiB quota.
+]0;rbrounle@unix1:lab5[rbrounle@unix1 lab5]$ mk list2.c
+CSOURCE=list1.c EXECBIN=list1
++ cid + list1.c
++ checksource list1.c
++ gcc -g -O0 -Wall -Wextra -std=gnu99 list1.c -o list1 -lm
++ tee list1.c.log
+list1.c: In function ‘main’:
+list1.c:13:15: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main (int argc, char **argv) {
+               ^
++ set +x
+============================================================
+CSOURCE=list2.c EXECBIN=list2
++ cid + list2.c
++ checksource list2.c
++ gcc -g -O0 -Wall -Wextra -std=gnu99 list2.c -o list2 -lm
++ tee list2.c.log
+list2.c: In function ‘main’:
+list2.c:13:15: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main (int argc, char **argv) {
+               ^
++ set +x
+============================================================
+CSOURCE=malloc.c EXECBIN=malloc
++ cid + malloc.c
++ checksource malloc.c
++ gcc -g -O0 -Wall -Wextra -std=gnu99 malloc.c -o malloc -lm
++ tee malloc.c.log
+malloc.c: In function ‘main’:
+malloc.c:12:15: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main (int argc, char **argv) {
+               ^
+malloc.c:12:28: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main (int argc, char **argv) {
+                            ^
++ set +x
+============================================================
+CSOURCE=uninit.c EXECBIN=uninit
++ cid + uninit.c
++ checksource uninit.c
++ gcc -g -O0 -Wall -Wextra -std=gnu99 uninit.c -o uninit -lm
++ tee uninit.c.log
+uninit.c: In function ‘main’:
+uninit.c:6:15: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main (int argc, char **argv) {
+               ^
+uninit.c:6:28: warning: unused parameter ‘argv’ [-Wunused-parameter]
+ int main (int argc, char **argv) {
+                            ^
+uninit.c:8:11: warning: ‘pointer’ is used uninitialized in this function [-Wuninitialized]
+    printf ("pointer=%p\n", pointer);
+           ^
+uninit.c:11:11: warning: ‘foo’ is used uninitialized in this function [-Wuninitialized]
+    printf ("foo=%d\n", foo);
+           ^
++ set +x
+============================================================
+]0;rbrounle@unix1:lab5[rbrounle@unix1 lab5]$ valgrind list2 foo bar
+==5202== Memcheck, a memory error detector
+==5202== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==5202== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==5202== Command: list2 foo bar
+==5202== 
+0x4c28180->node {word=0x7ff000109->[LANG=en_US.UTF-8], link=0x4c28130}
+0x4c28130->node {word=(nil)->[(null)], link=0x4c280e0}
+0x4c280e0->node {word=0x7ff000105->[bar], link=0x4c28090}
+0x4c28090->node {word=0x7ff000101->[foo], link=0x4c28040}
+==5202== Conditional jump or move depends on uninitialised value(s)
+==5202==    at 0x400682: main (list2.c:22)
+==5202== 
+==5202== 
+==5202== HEAP SUMMARY:
+==5202==     in use at exit: 80 bytes in 5 blocks
+==5202==   total heap usage: 5 allocs, 0 frees, 80 bytes allocated
+==5202== 
+==5202== LEAK SUMMARY:
+==5202==    definitely lost: 16 bytes in 1 blocks
+==5202==    indirectly lost: 64 bytes in 4 blocks
+==5202==      possibly lost: 0 bytes in 0 blocks
+==5202==    still reachable: 0 bytes in 0 blocks
+==5202==         suppressed: 0 bytes in 0 blocks
+==5202== Rerun with --leak-check=full to see details of leaked memory
+==5202== 
+==5202== For counts of detected and suppressed errors, rerun with: -v
+==5202== Use --track-origins=yes to see where uninitialised values come from
+==5202== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 6 from 6)
+]0;rbrounle@unix1:lab5[rbrounle@unix1 lab5]$ gdb list2
+[?1034hGNU gdb (GDB) Red Hat Enterprise Linux (7.6-34.el6)
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /afs/cats.ucsc.edu/users/s/rbrounle/private/cmps012m/lab5/list2...done.
+(gdb) break 26
+Breakpoint 1 at 0x400684: file list2.c, line 26.
+(gdb) run foo bar
+Starting program: /afs/cats.ucsc.edu/users/s/rbrounle/private/cmps012m/lab5/list2 foo bar
+warning: Skipping deprecated .gdb_index section in /usr/lib/debug/lib64/ld-2.12.so.debug.
+Do "set use-deprecated-index-sections on" before the file is read
+to use the section anyway.
+0x601090->node {word=0x7fffffffdfa4->[LANG=en_US.UTF-8], link=0x601070}
+0x601070->node {word=(nil)->[(null)], link=0x601050}
+0x601050->node {word=0x7fffffffdfa0->[bar], link=0x601030}
+0x601030->node {word=0x7fffffffdf9c->[foo], link=0x601010}
+
+Breakpoint 1, main (argc=3, argv=0x7fffffffdc88) at list2.c:26
+26	   return 9;
+(gdb) where
+#0  main (argc=3, argv=0x7fffffffdc88) at list2.c:26
+(gdb) list
+21	   }
+22	   for (node *curr = head; curr->link != NULL; curr = curr->link) {
+23	      printf ("%p->node {word=%p->[%s], link=%p}\n",
+24	              curr, curr->word, curr->word, curr->link);
+25	   }
+26	   return 9;
+27	}
+(gdb) list list2.c:23
+18	      node->word = argv[argi];
+19	      node->link = head;
+20	      head = node;
+21	   }
+22	   for (node *curr = head; curr->link != NULL; curr = curr->link) {
+23	      printf ("%p->node {word=%p->[%s], link=%p}\n",
+24	              curr, curr->word, curr->word, curr->link);
+25	   }
+26	   return 9;
+27	}
+(gdb) print head
+$1 = (node *) 0x601090
+(gdb) bt
+#0  main (argc=3, argv=0x7fffffffdc88) at list2.c:26
+(gdb) print head
+$2 = (node *) 0x601090
+(gdb) print *head
+$3 = {word = 0x7fffffffdfa4 "LANG=en_US.UTF-8", link = 0x601070}
+(gdb) print *(head->work[Kd)
+$4 = 76 'L'
+(gdb) print head->link.[K->link->link
+$5 = (node *) 0x601030
+(gdb) piri[K[K[Krint *(head_[K->link->link->link)
+$6 = {word = 0x7fffffffdf9c "foo", link = 0x601010}
+(gdb) ex[K[Kquit
+A debugging session is active.
+
+	Inferior 1 [process 5242] will be killed.
+
+Quit anyway? (y or n) ex  y
+]0;rbrounle@unix1:lab5[rbrounle@unix1 lab5]$ exit
+exit
+
+Script done on Wed 07 May 2014 02:43:24 PM PDT

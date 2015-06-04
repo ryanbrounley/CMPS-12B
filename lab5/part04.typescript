@@ -1,0 +1,87 @@
+Script started on Wed 07 May 2014 02:15:18 PM PDT
+You are currently using 5% (22.5 MiB) of your 488.3 MiB quota.
+]0;rbrounle@unix1:lab5[rbrounle@unix1 lab5]$ valgrind malloc
+==1557== Memcheck, a memory error detector
+==1557== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==1557== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==1557== Command: malloc
+==1557== 
+0x4c28090-> {6, (nil)}
+==1557== 
+==1557== HEAP SUMMARY:
+==1557==     in use at exit: 16 bytes in 1 blocks
+==1557==   total heap usage: 2 allocs, 1 frees, 32 bytes allocated
+==1557== 
+==1557== LEAK SUMMARY:
+==1557==    definitely lost: 16 bytes in 1 blocks
+==1557==    indirectly lost: 0 bytes in 0 blocks
+==1557==      possibly lost: 0 bytes in 0 blocks
+==1557==    still reachable: 0 bytes in 0 blocks
+==1557==         suppressed: 0 bytes in 0 blocks
+==1557== Rerun with --leak-check=full to see details of leaked memory
+==1557== 
+==1557== For counts of detected and suppressed errors, rerun with: -v
+==1557== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+]0;rbrounle@unix1:lab5[rbrounle@unix1 lab5]$ gdb malloc
+[?1034hGNU gdb (GDB) Red Hat Enterprise Linux (7.6-34.el6)
+Copyright (C) 2013 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-redhat-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /afs/cats.ucsc.edu/users/s/rbrounle/private/cmps012m/lab5/malloc...done.
+(gdb) break main
+Breakpoint 1 at 0x4005bf: file malloc.c, line 13.
+(gdb) run
+Starting program: /afs/cats.ucsc.edu/users/s/rbrounle/private/cmps012m/lab5/malloc 
+warning: Skipping deprecated .gdb_index section in /usr/lib/debug/lib64/ld-2.12.so.debug.
+Do "set use-deprecated-index-sections on" before the file is read
+to use the section anyway.
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffdca8) at malloc.c:13
+13	   node *ptr = malloc (sizeof (struct node));
+(gdb) print ptr
+$1 = (node *) 0x0
+(gdb) print *ptr
+Cannot access memory at address 0x0
+(gdb) next
+14	   ptr = malloc (sizeof (node));
+(gdb) print ptr
+$2 = (node *) 0x601010
+(gdb) print *ptr
+$3 = {value = 0, link = 0x0}
+(gdb) next
+15	   ptr->value = 6;
+(gdb) next
+16	   ptr->link = NULL;
+(gdb) next
+17	   printf ("%p-> {%d, %p}\n", ptr, ptr->value, ptr->link);
+(gdb) print ptr
+$4 = (node *) 0x601030
+(gdb) print *ptr
+$5 = {value = 6, link = 0x0}
+(gdb) next
+0x601030-> {6, (nil)}
+18	   free (ptr);
+(gdb) next
+19	   return EXIT_SUCCESS;
+(gdb) next
+20	}
+(gdb) next
+__libc_start_main (main=0x4005b0 <main>, argc=1, ubp_av=0x7fffffffdca8, init=<optimized out>, 
+    fini=<optimized out>, rtld_fini=<optimized out>, stack_end=0x7fffffffdc98)
+    at libc-start.c:258
+258	  exit (result);
+(gdb) next[Kquit
+A debugging session is active.
+
+	Inferior 1 [process 1730] will be killed.
+
+Quit anyway? (y or n) y
+]0;rbrounle@unix1:lab5[rbrounle@unix1 lab5]$ ex[K[Kexit
+exit
+
+Script done on Wed 07 May 2014 02:18:10 PM PDT

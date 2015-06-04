@@ -1,0 +1,4 @@
+list2.c: In function ‘main’:
+list2.c:13:15: warning: unused parameter ‘argc’ [-Wunused-parameter]
+ int main (int argc, char **argv) {
+               ^

@@ -1,0 +1,1 @@
+spellchk: strhash.c:10: strhash: Assertion `string != ((void *)0)' failed.

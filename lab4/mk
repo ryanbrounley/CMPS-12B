@@ -1,0 +1,4 @@
+#!/bin/sh
+# $Id$
+# Ryan Brounley -- rbrounle
+gcc -g -O0 -Wall -Wextra -std=gnu99 cmatch.c -o cmatch
